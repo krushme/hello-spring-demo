@@ -8,8 +8,6 @@ import org.springframework.web.bind.annotation.*;
  */
 
 @Controller
-@ResponseBody
-@RequestMapping("hello")
 public class HelloController {
 
     //    // Handle request at path /hello
@@ -19,26 +17,30 @@ public class HelloController {
 //        return "Hello, Spring!";
 //    }
 
-    // lives at /hello/goodbye
     @GetMapping("goodbye")
+    @ResponseBody
     public String goodbye() {
         return "Goodbye, Spring!";
     }
 
     // Handles requests of the form /hello?name=LaunchCode
-    @RequestMapping(method = {RequestMethod.GET, RequestMethod.POST})
+    @RequestMapping(method = {RequestMethod.GET, RequestMethod.POST}, value = "hello")
+    @ResponseBody
     public String helloWithQueryParam(@RequestParam String name) {
         return "Hello, " + name + "!";
     }
 
     // Handles requests of the form /hello/LaunchCode
-    @GetMapping("{name}")
+    @GetMapping("hello/{name}")
+    @ResponseBody
     public String helloWithPathParam(@PathVariable String name) {
         return "Hello, " + name + "!";
     }
 
     // /hello/form
+
     @GetMapping("form")
+    @ResponseBody
     public String helloForm() {
         return "<html>" +
                 "<body>" +
